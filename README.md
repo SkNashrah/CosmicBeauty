@@ -165,4 +165,4 @@ Software Developer | .NET MAUI | ASP.NET Core | SQL Server
 
 ## License
 
-Licensed under the MIT License.
+Licensed under the Apache 2.0 License.

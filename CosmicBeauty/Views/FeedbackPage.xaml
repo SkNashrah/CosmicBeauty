@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:CosmicBeauty.ViewModels"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:inputs="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+             xmlns:local="clr-namespace:CosmicBeauty.Views"
+             Style="{StaticResource CosmicPage}"
+             x:Class="CosmicBeauty.Views.FeedbackPage"
+             Title="FeedbackPage">
+    <VerticalStackLayout>
+        <Frame Style="{StaticResource CosmicCard}"
+           Padding="10"
+           Margin="20">
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto"
+                  ColumnDefinitions="*, *"
+                  Padding="10"
+                  RowSpacing="5"
+                  ColumnSpacing="0">
+
+                <Frame Grid.Row="0"
+                       Grid.Column="0"
+                       BorderColor="White"
+                       HeightRequest="120"
+                       HorizontalOptions="Start"
+                       BackgroundColor="White">
+                    <Image BackgroundColor="White"
+                           Source="{Binding ProductImage}"
+                           Aspect="AspectFit"/>
+                </Frame>
+
+                
+                <Label Grid.Row="0"
+                        Grid.Column="1"
+                        Text="{Binding ProductName}"
+                        FontSize="24"
+                        FontAttributes="Bold"
+                        Style="{StaticResource CosmicText}"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"/>
+
+
+                <Label Grid.Row="1"
+                   Style="{StaticResource CosmicText}"
+                   Grid.ColumnSpan="2"
+                   Text="Rate your experience:"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"/>
+
+                <inputs:SfRating Grid.Row="2"
+                                 Grid.ColumnSpan="2"
+                                 BackgroundColor="Transparent"
+                                 Value="{Binding Rating}"
+                                 ItemCount="5"
+                                 ItemSize="30"
+                                 ItemSpacing="15"
+                                 HorizontalOptions="Center">
+                    <inputs:SfRating.RatingSettings>
+                        <inputs:RatingSettings RatedFill="{AppThemeBinding Dark={StaticResource CosmicSecondaryDark}, Light={StaticResource CosmicSecondary}}"
+                                               UnratedFill="Transparent"
+                                               RatedStroke="{AppThemeBinding Dark={StaticResource CosmicPrimaryDark}, Light={StaticResource CosmicSecondary}}"
+                                               UnratedStroke="{AppThemeBinding Dark={StaticResource CosmicPrimaryDark}, Light={StaticResource CosmicPrimary}}"/>
+                    </inputs:SfRating.RatingSettings>
+                </inputs:SfRating>
+
+            </Grid>
+        </Frame>
+
+        <Frame Style="{StaticResource CosmicCard}"
+           Padding="10"
+           Margin="20"
+           VerticalOptions="End">
+            <VerticalStackLayout>
+                <Editor Text="{Binding Comment}"
+                Placeholder="Enter your feedback here..."
+                AutoSize="TextChanges"
+                HeightRequest="100"
+                Style="{StaticResource CosmicEditor}"/>
+                <Button Text="Submit Feedback"
+                Command="{Binding SubmitFeedbackCommand}"
+                Style="{StaticResource CosmicPrimaryButton}"
+                HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Frame>
+    </VerticalStackLayout>
+</ContentPage>

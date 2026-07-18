@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CosmicBeauty.Views.ProductCard"
+             BackgroundColor="Cornsilk"
+             Title="Products">
+    <ScrollView>
+
+        <VerticalStackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center">
+            <Frame Padding="10"
+               Margin="10"
+               BorderColor="Navy"
+               CornerRadius="10"
+               BackgroundColor="WhiteSmoke"
+               HorizontalOptions="Center"
+               VerticalOptions="Center">
+                <Frame.Shadow>
+                    <Shadow Brush="Black"
+                        Opacity="0.5"
+                        Offset="5,5"
+                        Radius="12" />
+
+                </Frame.Shadow>
+                <VerticalStackLayout Spacing="10">
+
+                    <Border 
+                Stroke="Transparent"
+                StrokeShape="RoundRectangle 12"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+
+                        <Border.Shadow>
+                            <Shadow Brush="Black"
+                            Offset="5,5"
+                            Opacity="0.3"
+                            Radius="10"/>
+                        </Border.Shadow>
+
+
+                        <Image Source="headset.jpg"
+                       Aspect="AspectFit" 
+                        MaximumHeightRequest="500"
+                        MaximumWidthRequest="500"/>
+                    </Border>
+
+                    <VerticalStackLayout  Padding="10"
+                                      Spacing="5">
+                        <Label Text="Sony Wireless Headphones"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="Navy"/>
+                        <Label Text="Noise-cancelling with 30-hour battery life. Bluetooth 5.0 with premium sound quality."
+                           FontSize="14"
+                           FontAttributes="Italic"
+                           TextColor="Black"/>
+                        <Label Text="₹10,000"
+                           FontSize="20"
+                           TextColor="Black"
+                           FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+
+                    <Grid RowDefinitions="Auto,*" ColumnDefinitions="Auto,*" ColumnSpacing="15" HorizontalOptions="FillAndExpand">
+
+                        <Button Text="Add to Cart"                       
+                            Grid.Column="0"        
+                            WidthRequest="150"
+                            Padding="10"
+                            CornerRadius="8"
+                            HorizontalOptions="Start">
+                            <Button.Shadow>
+                                <Shadow Brush="#20000000"
+                                    Offset="0,2"
+                                    Opacity="0.5"
+                                    Radius="5"/>
+                            </Button.Shadow>
+                        </Button>
+                        <Button Text="Buy Now"
+                            Grid.Column="1"
+                            WidthRequest="150"
+                            CornerRadius="8"
+                            Padding="10"
+                            HorizontalOptions="End">
+                            <Button.Shadow>
+                                <Shadow Brush="#20000000"
+                                    Offset="2,2"
+                                    Opacity="0.5"
+                                    Radius="5"/>        
+                            </Button.Shadow>
+                        </Button>
+
+                    </Grid>
+                </VerticalStackLayout>
+
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

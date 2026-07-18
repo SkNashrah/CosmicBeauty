@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:CosmicBeauty.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="CosmicBeauty.Views.DetailPage"
+             x:Name="detailPage"
+             BackgroundColor="{AppThemeBinding Light={StaticResource CosmicBackground}, Dark={StaticResource CosmicBackgroundDark}}"
+             Title="DetailPage">
+
+  
+    
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+              Padding="10"
+              RowSpacing="12">
+                <Frame Grid.Row="0"
+                   CornerRadius="15"
+                   HeightRequest="300"
+                   WidthRequest="300"
+                   HorizontalOptions="Center"
+                   BackgroundColor="White"
+                   BorderColor="{AppThemeBinding Light={StaticResource CosmicPrimary}, Dark={StaticResource CosmicPrimaryDark}}">
+
+                    <Image Source="{Binding CurrentProduct.Image}"
+                       Aspect="AspectFit">
+                    </Image>
+                </Frame>
+
+            <Label Grid.Row="1"
+                   Text="{Binding CurrentProduct.Brand}"
+                   FontSize="20"
+                   TextDecorations="Underline"
+                   Style="{StaticResource CosmicText}"
+                   VerticalOptions="End"
+                   HorizontalTextAlignment="Start"/>
+
+            <Label Grid.Row="2"
+                   Text="{Binding CurrentProduct.Name}"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   Style="{StaticResource CosmicSecondaryText}"
+                   HorizontalOptions="Start"/>
+
+
+           
+            <Label Grid.Row="3"
+                   Text="{Binding CurrentProduct.OriginalPrice}"
+                   FontSize="12"
+                   TextDecorations="Strikethrough"
+                   TextColor="Gray"
+                   VerticalOptions="End"
+                   HorizontalTextAlignment="Start"/>
+
+            <Label Grid.Row="3"
+                   Text="{Binding CurrentProduct.SalePrice}"
+                   FontSize="14"
+                   TextColor="Black"
+                   HorizontalOptions="Center"/>
+
+            <Label Grid.Row="4"
+                   Text="{Binding CurrentProduct.StockStatus}"
+                   IsVisible="{Binding CurrentProduct.ShowStockWarning}"
+                   FontSize="14"
+                   TextColor="Red"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"
+                   HorizontalTextAlignment="Start"/>   
+
+            <Frame Grid.Row="5"
+                   CornerRadius="15"
+                   Padding="15"
+                   Style="{StaticResource CosmicCard}">
+                <Label Text="{Binding CurrentProduct.Description}"
+                       FontSize="14"
+                       TextColor="Black"
+                       LineBreakMode="WordWrap"
+                       HorizontalTextAlignment="Center"/>
+            </Frame>
+
+            <HorizontalStackLayout Grid.Row="6"
+                                   Spacing="10"
+                                   HorizontalOptions="Center">
+
+                <Button Text="Wishlist"
+                        CornerRadius="20"
+                        Style="{StaticResource CosmicSecondryButton}"
+                        BorderColor="{AppThemeBinding Light={StaticResource CosmicSecondary}}"
+                        TextColor="{AppThemeBinding Light={StaticResource CosmicSecondary}}"
+                        BorderWidth="1"
+                        FontAttributes="Bold"
+                        WidthRequest="150"
+                        HeightRequest="50">
+                    <Button.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            EventName="Clicked"
+                            Command="{Binding WishlistCommand}"
+                            CommandParameter="{Binding CurrentProduct}"/>
+                            <!--Command="{Binding Source={x:Reference detailPage}, Path=BindingContext.WishlistCommand}"
+                            CommandParameter="{Binding}"/>-->
+                    </Button.Behaviors>
+                </Button>
+
+
+                <Button Text="Add to Bag"
+                        CornerRadius="20"
+                        Command="{Binding AddToBagCommand}"
+                        CommandParameter="{Binding CurrentProduct}"
+                        Style="{StaticResource CosmicPrimaryButton}"
+                        FontAttributes="Bold"
+                        HeightRequest="50"
+                        WidthRequest="150"/>
+
+            </HorizontalStackLayout>
+
+
+            <Grid Grid.Row="7"
+                  RowDefinitions="20, Auto, Auto, *"
+                  ColumnDefinitions="*, Auto"
+                  Padding="5"
+                  RowSpacing="5">
+                <BoxView Grid.Row="0"
+                         Grid.ColumnSpan="2"
+                         HeightRequest="1"
+                         Color="Gray"/>
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Customer Reviews"
+                       Style="{StaticResource CosmicText}"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"/>
+
+                <Button Grid.Row="1"
+                        Grid.Column="2"
+                        Text="Rate"
+                        Style="{StaticResource CosmicPrimaryButton}"
+                        Command="{Binding NavigateFeedbackCommand}"
+                        VerticalOptions="Center"/>
+
+                <BoxView Grid.Row="2"
+                         Grid.ColumnSpan="2"
+                         HeightRequest="1"
+                         Color="Gray"/>
+
+
+                <CollectionView Grid.Row="3"
+                                Grid.ColumnSpan="2"
+                                ItemsSource="{Binding Reviews}"
+                                EmptyView="No review, be first to Rate it...!"
+                                HorizontalOptions="End"
+                                Margin="0,20">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="5"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Style="{StaticResource CosmicCard}"
+                                   Padding="15">
+                                <VerticalStackLayout>
+                                    <HorizontalStackLayout Spacing="30">
+                                        <Frame CornerRadius="40"
+                                               BackgroundColor="White"
+                                               HeightRequest="40"
+                                               WidthRequest="40"
+                                               BorderColor="{AppThemeBinding Dark={StaticResource CosmicPrimaryDark}, Light={StaticResource CosmicPrimary}}">
+                                            <Image Source="userplaceholderpink.jpeg"
+                                               WidthRequest="40"
+                                               HeightRequest="40"
+                                               Aspect="AspectFit"/>
+                                        </Frame>
+                                        <VerticalStackLayout>
+                                            <Label Text="{Binding UserName}"
+                                                   FontSize="16"
+                                                   FontAttributes="Bold"
+                                                   HorizontalOptions="Start"
+                                                   Style="{StaticResource CosmicText}"/>
+                                            <Label Text="{Binding StarRating}"
+                                                    FontSize="20"
+                                                    HorizontalOptions="Center"
+                                                    Style="{StaticResource CosmicText}"/>
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+                                    
+                                    
+                                    <Label Text="{Binding Comment}"
+                                           TextColor="Black"
+                                           LineBreakMode="WordWrap"
+                                           HorizontalTextAlignment="Justify"/>
+                                    
+                                    <Label Text="{Binding ReviewDate, StringFormat='Reviewed on {0:MMM dd, yyyy}'}"
+                                       FontSize="12"
+                                       TextColor="Gray"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Grid>
+
+    </ScrollView>
+</ContentPage>  

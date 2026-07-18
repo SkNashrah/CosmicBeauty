@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" 
+            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+            xmlns:viewmodel="clr-namespace:CosmicBeauty.ViewModels"
+            x:Class="CosmicBeauty.Views.CosmicLoginPage"
+            x:DataType="viewmodel:CosmicLoginViewModel"
+            NavigationPage.HasNavigationBar="False"
+            BackgroundColor="{AppThemeBinding Light={StaticResource CosmicBackground}, Dark={StaticResource CosmicBackgroundDark}}"
+            Title="Cosmic Gateway">
+
+
+
+    <Grid RowDefinitions="*,Auto">
+        <VerticalStackLayout Spacing="30"
+                            Grid.Row="0"
+                            Padding="30,0"
+                            VerticalOptions="Center">
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Image Source="fairyicon.png"
+                    HeightRequest="60"
+                    WidthRequest="60"
+                    VerticalOptions="Start"/>
+                <Label Text="COSMIC PORTAL"
+                    Style="{StaticResource CosmicText}"
+                    FontAttributes="Bold"
+                    FontSize="30"
+                    HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <Frame Style="{StaticResource CosmicCard}"
+                CornerRadius="20"
+                HasShadow="True">
+                <VerticalStackLayout Spacing="20">
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Cosmic ID"
+                            FontSize="14"
+                            Style="{StaticResource CosmicText}"
+                            FontAttributes="Bold"/>
+
+                        <Entry x:Name="EmailEntry"
+                            Placeholder="User@cosmic.com"
+                            FontSize="10"
+                            Keyboard="Email"
+                            Text="{Binding Email}"
+                            Style="{StaticResource CosmicEntry}">
+                            <Entry.Behaviors>
+                                <behaviors:EmailValidationBehavior
+                                x:Name="EmailValidator"
+                                Flags="ValidateOnValueChanged"/>
+
+                            </Entry.Behaviors>
+                        </Entry>
+
+                        <Label Text="Please enter correct email..."
+                            FontSize="10"
+                            Style="{StaticResource ErrorLabelStyle}"
+                            IsVisible="{Binding Source={x:Reference EmailValidator}, Path=IsNotValid}">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                            Binding="{Binding Source={x:Reference EmailEntry}, Path=Text.Length}"
+                                            Value="0">
+                                    <Setter Property="IsVisible" Value="False"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </VerticalStackLayout>
+
+                    <!--Password Entry-->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Cosmic Key"
+                            FontSize="14"
+                            Style="{StaticResource CosmicText}"
+                            FontAttributes="Bold"/>
+
+                        <Entry Placeholder="Enter your cosmic key 🔑"
+                            IsPassword="True"
+                            FontSize="10"
+                            Text="{Binding Password}"
+                            Style="{StaticResource CosmicEntry}">
+                        </Entry>
+
+                        <Label Text="{Binding PasswordError}"
+                            FontSize="10"
+                            Style="{StaticResource ErrorLabelStyle}"
+                            IsVisible="{Binding ShowPasswordError}"/>
+                    </VerticalStackLayout>
+
+                    <Button Text="Login"
+                            FontSize="16"
+                            Command="{Binding LoginCommand}"
+                            Style="{StaticResource CosmicButton}"
+                            FontAttributes="Bold"/>
+
+                    <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                    IsRunning="{Binding IsBusy}"
+                                    Color="{AppThemeBinding Light= {StaticResource CosmicPrimary}, Dark= {StaticResource CosmicPrimaryDark}}"
+                                    HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Label Text="By accessing the cosmos, you agree to our interdimensional terms"
+                Style="{StaticResource CosmicSecondaryText}"
+                HorizontalOptions="Center"
+                FontSize="12"
+                Margin="0,20,0,0"/>
+        </VerticalStackLayout>
+
+        <BoxView Grid.Row="1" HeightRequest="0"/>
+    </Grid>
+</ContentPage>

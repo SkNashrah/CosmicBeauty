@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:CosmicBeauty.ViewModels"
+             x:Class="CosmicBeauty.Views.AddProductForm"
+             Style="{StaticResource CosmicPage}"
+             Title="AddProductForm">
+
+    <NavigationPage.TitleView>
+        <Grid Style="{StaticResource CosmicNavBar}" HeightRequest="60">
+            <Label 
+                Text="Add Product"
+                FontSize="20"
+                TextColor="White"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" />
+        </Grid>
+    </NavigationPage.TitleView>
+    
+    
+    <ScrollView>
+        <Grid toolkit:StateContainer.CurrentState="{Binding CurrentState}"
+          toolkit:StateContainer.CanStateChange="True">
+
+        <toolkit:StateContainer.StateViews>
+            <VerticalStackLayout toolkit:StateView.StateKey="Loading"
+                                 VerticalOptions="Center">
+                <ActivityIndicator IsRunning="True"
+                                   Color="{AppThemeBinding Light={StaticResource CosmicPrimary}, Dark={StaticResource CosmicPrimaryDark}}"
+                                   Scale="2"/>
+                <Label Text="Loading..."
+                       Style="{StaticResource CosmicLabel}"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout toolkit:StateView.StateKey="Error"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="20">
+                <Label Text="An error occured. Please try again.. "
+                   Style="{StaticResource ErrorLabelStyle}"
+                   HorizontalOptions="Center"/>
+                <Button Text="Retry"
+                    Command="{Binding RetryCommand}"
+                    Style="{StaticResource CosmicButton}"/>
+            </VerticalStackLayout>
+
+            <Grid toolkit:StateView.StateKey="Content"
+                         VerticalOptions="Fill">
+
+                    <VerticalStackLayout Spacing="15"
+                             Padding="20">
+                        <Frame CornerRadius="15"
+                               Style="{StaticResource CosmicCard}"
+                               Padding="10">
+                            <Entry Placeholder="Product Name"
+                                   Style="{StaticResource CosmicEntry}"
+                                   Text="{Binding NewProduct.Name}"/>
+
+                        </Frame>
+
+                        <Frame CornerRadius="15"
+                               Style="{StaticResource CosmicCard}"
+                               Padding="10">
+                            <Picker Title="Select Category"
+                                    SelectedItem="{Binding NewProduct.Category}"
+                                    ItemsSource="{Binding Categories}"
+                                    Style="{StaticResource CosmicPicker}"/>
+                        </Frame>
+
+                        <Frame CornerRadius="15"
+                               Style="{StaticResource CosmicCard}"
+                               Padding="10">
+
+                            <Entry Placeholder="Original Price (Rs)"
+                                   Style="{StaticResource CosmicEntry}"
+                                   Text="{Binding NewProduct.OriginalPrice}"/>
+                        </Frame>
+
+                        <Frame CornerRadius="15"
+                               Style="{StaticResource CosmicCard}"
+                               Padding="10">
+
+                            <Entry Placeholder="Sale Price (Rs)"
+                                   Style="{StaticResource CosmicEntry}"
+                                   Text="{Binding NewProduct.SalePrice}"/>
+                        </Frame>
+
+                        <Frame CornerRadius="15"
+                               Style="{StaticResource CosmicCard}"
+                               Padding="10">
+                            <Entry Placeholder="Brand"
+                                   Style="{StaticResource CosmicEntry}"
+                                   Text="{Binding NewProduct.Brand}"/>
+                        </Frame>
+
+                        <!--<Frame CornerRadius="15"
+                               Style="{StaticResource CosmicCard}"
+                                Padding="10">
+                            <Editor Placeholder="Description"
+                                    Style="{StaticResource CosmicEditor}"
+                                    Text="{Binding NewProduct.Description}"/>
+                        </Frame>-->
+
+                        <Frame  CornerRadius="15"
+                                Style="{StaticResource CosmicCard}"
+                                Padding="10">
+                            <Button Text="{Binding ImageButtonText}"
+                                    Command="{Binding SelectImageCommand}"
+                                    Style="{StaticResource CosmicSecondryButton}"/>
+                        </Frame>
+
+                        <Frame CornerRadius="15"
+                               Style="{StaticResource CosmicCard}"
+                               Padding="10"
+                               BackgroundColor="White"
+                               IsVisible="{Binding HasImage}">
+                            <Image Source="{Binding NewProduct.Image}" 
+                                   Aspect="AspectFit"
+                                   HeightRequest="200"/>
+
+                        </Frame>
+
+                        <Frame CornerRadius="15"
+                               Padding="10"
+                               Style="{StaticResource CosmicCard}">
+                            <Button Text="{Binding SelectTextFileButtonText}"
+                                    Command="{Binding SelectTextFileCommand}"
+                                    Style="{StaticResource CosmicSecondryButton}"/>
+                        </Frame>
+
+                        <Frame CornerRadius="15"
+                               Style="{StaticResource CosmicCard}"
+                               Padding="10"
+                               IsVisible="{Binding HasFile}">
+                            <Editor Placeholder="Description in detail"
+                                    Style="{StaticResource CosmicEditor}"
+                                    Text="{Binding Description}"/>
+                        </Frame>
+
+                        <Frame CornerRadius="15"
+                               HeightRequest="80"
+                               BorderColor="Transparent"
+                               BackgroundColor="Transparent"
+                               Padding="0">
+                            <Button x:Name="AddProductButton"
+                                    Text="Add Product"
+                                    Command="{Binding AddProductCommand}"
+                                    FontAttributes="Bold"
+                                    CornerRadius="15"
+                                    Pressed="OnButtonPressed"
+                                    Released="OnButtonReleased"
+                                    Style="{StaticResource CosmicButton}"/>
+                        </Frame>
+                    </VerticalStackLayout>
+            </Grid>
+        </toolkit:StateContainer.StateViews>
+    </Grid>
+   </ScrollView>
+</ContentPage>

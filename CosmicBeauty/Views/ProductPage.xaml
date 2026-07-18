@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+             xmlns:viewmodels="clr-namespace:CosmicBeauty.ViewModels"  
+             NavigationPage.HasBackButton="False"
+             x:Class="CosmicBeauty.Views.ProductPage"  
+             BackgroundColor="{AppThemeBinding Light={StaticResource CosmicBackground}, Dark={StaticResource CosmicBackgroundDark}}"
+             Title="CosmicBeauty">
+
+    <NavigationPage.TitleView>
+        <Grid Style="{StaticResource CosmicNavBar}">
+            <Label Text="CosmicBeauty"
+                   TextColor="{StaticResource White}"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"/>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="shoppingbag.png" Command="{Binding NavigateToBagCommand}"/>
+        <ToolbarItem Text="☰" Command="{Binding ToggleMenuCommand}"/>
+    </ContentPage.ToolbarItems>
+
+  
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
+        <ScrollView Grid.RowSpan="5">
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto">
+                <!-- Search Bar Frame -->
+                <Frame Grid.Row="0"
+                       Style="{StaticResource CosmicCard}"
+                       CornerRadius="20"
+                       Padding="0"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       Margin="10,10,10,0">
+
+                    <SearchBar Placeholder="Search Cosmic Beauty..."  
+                               BackgroundColor="Transparent"
+                               FontSize="10"
+                               TextColor="{AppThemeBinding Light={StaticResource CosmicCard}, Dark={StaticResource CosmicCardDark}}"
+                               PlaceholderColor="{AppThemeBinding Light={StaticResource CosmicPrimary}, Dark={StaticResource CosmicPrimaryDark}}"
+                               HeightRequest="7"
+                               VerticalOptions="Center"
+                               HorizontalOptions="StartAndExpand"
+                               VerticalTextAlignment="Center">
+                    </SearchBar>
+                </Frame>
+
+                <!-- Categories CollectionView -->
+                <CollectionView Grid.Row="1"  
+                              ItemsSource="{Binding Categories}"  
+                              HorizontalScrollBarVisibility="Never"  
+                              SelectionMode="Single"  
+                              Margin="10,5">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="15,8"  
+                                   CornerRadius="20"  
+                                   BackgroundColor="{AppThemeBinding Light={StaticResource CosmicSecondary}, Dark={StaticResource CosmicSecondaryDark}}"  
+                                   BorderColor="{StaticResource CosmicPrimary}">
+                                <Label Text="{Binding .}"  
+                                       TextColor="White"  
+                                       FontSize="10"  
+                                       FontAttributes="Bold"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Promo Banner -->
+                <Frame Grid.Row="2"  
+                       CornerRadius="15"  
+                       Margin="10,5"  
+                       HeightRequest="120"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource CosmicPrimary}, Dark={StaticResource CosmicPrimaryDark}}"
+                       BorderColor="{AppThemeBinding Light={ StaticResource CosmicSecondary}, Dark={StaticResource CosmicSecondaryDark}}">
+                    <Label Text="NEW: Cosmic Collection"  
+                           TextColor="White"  
+                           FontSize="18"  
+                           FontAttributes="Bold"  
+                           VerticalOptions="Center"  
+                           HorizontalOptions="Center"/>
+                </Frame>
+
+                <!-- Products CollectionView -->
+                <CollectionView x:Name="productsCollectionView"
+                                Grid.Row="3"  
+                                ItemsSource="{Binding Products}"  
+                                SelectionMode="Single"  
+                                Margin="10"
+                                SelectionChanged="OnProductSelected">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical"   
+                                       Span="2"  
+                                       HorizontalItemSpacing="10"  
+                                       VerticalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView Threshold="100">
+                                <SwipeView.RightItems>
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="Maroon" 
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteProductCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                </SwipeView.RightItems>
+                                <Frame Style="{StaticResource CosmicCard}"
+                                       CornerRadius="10"  
+                                       HeightRequest="320"
+                                       WidthRequest="160"
+                                       Padding="0">
+
+                                   
+                                    <Grid RowDefinitions="150,50,30,20,60" Padding="5" RowSpacing="0">
+                                        <Frame Grid.Row="0"
+                                               CornerRadius="10"
+                                               Padding="0"
+                                               HeightRequest="150"
+                                               WidthRequest="150"
+                                               BackgroundColor="White"
+                                               BorderColor="Transparent"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Fill">
+                                            <Image Source="{Binding Image}"  
+                                                   Aspect="AspectFit"
+                                                   HeightRequest="140"
+                                                   WidthRequest="140"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center"/>
+                                        </Frame>
+
+                                        <Label Grid.Row="1"                                    
+                                               Text="{Binding Name}"
+                                               FontSize="12"
+                                               TextColor="{StaticResource CosmicPrimary}"
+                                               FontAttributes="Bold"
+                                               MaxLines="2"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               HorizontalOptions="Center"
+                                               LineBreakMode="WordWrap"/>
+
+                                        <Label Grid.Row="2"
+                                               Text="{Binding OriginalPrice}"
+                                               FontSize="10"
+                                               Padding="10,0"
+                                               FontAttributes="Bold"
+                                               TextDecorations="Strikethrough"
+                                               HorizontalOptions="Start"
+                                               VerticalOptions="Center"
+                                               TextColor="{StaticResource Gray500}"/>
+                                        <Label Grid.Row="2"
+                                               Text="{Binding SalePrice}"
+                                               FontSize="12"
+                                               Padding="10,0"
+                                               TextColor="{StaticResource Black}"
+                                               FontAttributes="Bold"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               HorizontalOptions="End"/>
+
+                                        <Label Grid.Row="3" 
+                                               Text="{Binding StockStatus}"
+                                               IsVisible="{Binding ShowStockWarning}"
+                                               FontSize="10"
+                                               TextColor="Red"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="Start"
+                                               VerticalOptions="Center"/>
+
+                                        <Grid Grid.Row="4" ColumnDefinitions="Auto,*" 
+                                              ColumnSpacing="5" 
+                                              Padding="0"
+                                              VerticalOptions="End">
+                                            <ImageButton Grid.Column="0"
+                                                    Source="heartstrokes.png"
+                                                    HeightRequest="20"
+                                                    WidthRequest="15"
+                                                    BorderColor="Transparent"
+                                                    BackgroundColor="Transparent"
+                                                    BorderWidth="1"
+                                                    Padding="0"
+                                                    HorizontalOptions="Start"
+                                                    InputTransparent="False"
+                                                    Pressed="OnWishlistPressed"
+                                                    Released="OnWishlistReleased"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, 
+                                                    Path=BindingContext.WishlistCommand}"
+                                                    CommandParameter="{Binding .}">
+                                                
+
+                                                
+                                                <ImageButton.Triggers>
+                                                    <DataTrigger TargetType="ImageButton" 
+                                                                 Binding="{Binding IsInWishlist}"
+                                                                 Value="True">
+                                                        <Setter Property="Source" Value="heart.png"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="ImageButton" 
+                                                                 Binding="{Binding IsInWishlist}"
+                                                                 Value="False">
+                                                        <Setter Property="Source" Value="heartstrokes.png"/>
+                                                    </DataTrigger>
+                                                </ImageButton.Triggers>
+                                            </ImageButton>
+                                            
+                                            <Button Text="Add To Bag"
+                                                    Grid.Column="1"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type
+                                                 ContentPage}}, Path=BindingContext.AddToBagCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Pressed="OnAddToBagPressed"
+                                                    Released="OnAddToBagReleased"
+                                                    Padding="1"
+                                                    Style="{StaticResource CosmicButton}"
+                                                    CornerRadius="20"
+                                                    HorizontalOptions="Fill"
+                                                    HeightRequest="40"
+                                                    FontSize="10"/>
+                                        </Grid>
+                                    </Grid>
+                                </Frame>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </ScrollView>
+
+        <ActivityIndicator Grid.RowSpan="2"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"
+                           Style="{StaticResource CosmicText}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Scale="2"/>
+
+
+        <!-- Menu Overlay -->
+        <BoxView IsVisible="{Binding IsMenuVisible}"
+                 BackgroundColor="#80000000"
+                 Opacity="0.4"
+                 InputTransparent="False">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ToggleMenuCommand}"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- Dropdown Menu -->
+        <Frame x:Name="dropdownMenu"
+               Grid.Row="0"
+               Grid.RowSpan="5"
+               IsVisible="{Binding IsMenuVisible}"
+               Style="{StaticResource CosmicCard}"
+               CornerRadius="10"
+               Padding="0"
+               HorizontalOptions="End"
+               VerticalOptions="Start"
+               ZIndex="1000">
+            <CollectionView ItemsSource="{Binding MenuItems}"
+                      BackgroundColor="{AppThemeBinding Light={StaticResource CosmicCard}, Dark={StaticResource CosmicCardDark}}"
+                      Margin="0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <Button Text="{Binding Title}"
+                                    Command="{Binding Command}"
+                                    BackgroundColor="Transparent"
+                                    TextColor="{AppThemeBinding Light={StaticResource CosmicPrimary}, Dark={StaticResource CosmicPrimaryDark}}"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    Padding="15,10"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Center"/>
+                            <BoxView Style="{StaticResource CosmicText}"
+                                     WidthRequest="180"
+                                     HeightRequest="1"
+                                     CornerRadius="10"
+                                     Margin="10,0"
+                                     HorizontalOptions="Fill"
+                                     VerticalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Frame>
+    </Grid>
+</ContentPage>

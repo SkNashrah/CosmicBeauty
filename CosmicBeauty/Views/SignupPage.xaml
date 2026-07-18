@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CosmicBeauty.Views.SignupPage"
+             BackgroundColor="Cornsilk"
+             Title="SignupPage">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="20">
+
+            <Image Source="signup_banner.png" 
+                   Aspect="AspectFill"
+                   HorizontalOptions="Center"/>
+            <Label Text="Create Account" TextColor="Black"
+                   FontAttributes="Bold"
+                    FontSize="32" HorizontalOptions="Center"/>
+
+            <Frame CornerRadius="12" Padding="15" HasShadow="True" BackgroundColor="Wheat">
+
+
+                <VerticalStackLayout Spacing="15">
+                    
+                    
+                    <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                        <Image Source="userblue.png"
+                               WidthRequest="30"
+                               HeightRequest="30"/>
+                        <Border Stroke="Navy"
+                                Grid.Column="1"
+                                Padding="10,0"
+                                BackgroundColor="White"
+                                StrokeShape="RoundRectangle 12"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">                            
+                        <Entry x:Name="UsernameEntry" 
+                               Placeholder="Enter your username" 
+                               BackgroundColor="White"
+                               HorizontalOptions="FillAndExpand"
+                               Grid.Column="1"/>                         
+                        </Border>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                        <Image Source="mail.png"
+                               WidthRequest="30"
+                               HeightRequest="30"/>
+                        <Border Stroke="Navy"
+                                Grid.Column="1"
+                                BackgroundColor="White"
+                                StrokeShape="RoundRectangle 12"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                            <Entry x:Name="EmailEntry" 
+                               Placeholder="Enter your email" 
+                               Keyboard="Email"
+                               BackgroundColor="Transparent"
+                               HorizontalOptions="FillAndExpand"
+                               Grid.Column="1"/>
+                        </Border>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto,Auto" ColumnSpacing="10">
+                        <Image Source="password.png"
+                               WidthRequest="30"
+                               HeightRequest="30"
+                               Grid.Column="0"                      
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="15">
+                            <Border Stroke="Navy"
+                                    Grid.Column="1"
+                                    BackgroundColor="White"
+                                    StrokeShape="RoundRectangle 12"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Center">
+
+                                <Entry x:Name="PasswordEntry" 
+                                       Placeholder="Enter your password" 
+                                       IsPassword="True" 
+                                       HorizontalOptions="FillAndExpand"
+                                       Grid.Column="1"/>
+                                
+                            </Border>
+                            <Border Stroke="Navy"
+                                    Grid.Column="1"
+                                    BackgroundColor="White"
+                                    StrokeShape="RoundRectangle 12"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Center">
+                                <Entry x:Name="ConfirmPasswordEntry" 
+                                       Placeholder="Confirm your password" 
+                                       FontSize="14"
+                                       IsPassword="True"
+                                       HorizontalOptions="FillAndExpand"
+                                       Grid.Column="1"
+                                       Grid.Row="2"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+                    <Label Text="Select Birthday Details"
+                           FontAttributes="Bold"
+                           TextColor="Navy"/>
+                    <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                        <Image Source="birthdate.png"
+                                 WidthRequest="30"
+                                 HeightRequest="30"/>
+                        <Border Stroke="Navy"
+                                Grid.Column="1"
+                                BackgroundColor="White"
+                                StrokeShape="RoundRectangle 12"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                            <DatePicker x:Name="BirthdatePicker" 
+                                        Format="D"
+                                        FontSize="13"  
+                                        HorizontalOptions="FillAndExpand"
+                                        TextColor="Maroon"
+                                        Grid.Column="1"/>
+                        </Border>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+
+                        <Image Source="clock.png"
+                               WidthRequest="30"
+                               HeightRequest="30"/>
+                        <Border Stroke="Navy"
+                                Grid.Column="1"
+                                BackgroundColor="White"
+                                StrokeShape="RoundRectangle 12"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+
+                            <TimePicker x:Name="BirthTimePicker" 
+                                            Format="t" 
+                                            FontSize="13"
+                                            TextColor="Maroon"
+                                            BackgroundColor="Transparent"
+                                            HorizontalOptions="FillAndExpand"
+                                            Grid.Column="1"/>
+                        </Border>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+
+                        <Image Source="gender.png" 
+                               WidthRequest="30"
+                               HeightRequest="30"/>
+
+                        <FlexLayout  Grid.Column="1" Wrap="Wrap"
+                                    AlignItems="Start" JustifyContent="Start" 
+                                    Direction="Row" >   
+
+                            <RadioButton Content="Female" TextColor="Navy"
+                                         Margin="0,0,15,0" FontSize="12"/>
+                            <RadioButton Content="Male" TextColor="Navy"
+                                         Margin="0,0,15,0" FontSize="12"/>
+                            
+                        </FlexLayout>
+
+                    </Grid>
+
+                    <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                        <Image Source="country.png"
+                               WidthRequest="30"
+                               HeightRequest="30"/>
+                        <Border Stroke="Navy"
+                                Grid.Column="1"
+                                BackgroundColor="White"
+                                StrokeShape="RoundRectangle 12"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+
+                            <Picker x:Name="CountryPicker" 
+                                    Title=" Select Country" 
+                                    Margin="10,0"
+                                    BackgroundColor="Transparent"
+                                    Grid.Column="1">
+                                <Picker.Items>
+                                    <x:String>United States</x:String>
+                                    <x:String>Canada</x:String>
+                                    <x:String>United Kingdom</x:String>
+                                    <x:String>Australia</x:String>
+                                    <x:String>India</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Border>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+
+                        <Image Source="location.png"
+                               WidthRequest="30"
+                               HeightRequest="30"/>
+                        <Border Stroke="Navy"
+                                Grid.Column="1"
+                                BackgroundColor="White"
+                                StrokeShape="RoundRectangle 12"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                            <Editor Placeholder="Enter Your Address"
+                                    HorizontalOptions="Fill"
+                                    TextColor="Black" 
+                                    FontSize="12"
+                                    VerticalOptions="Fill"/>
+                        </Border>
+                    </Grid>
+
+
+                        <HorizontalStackLayout HorizontalOptions="Center">
+                        
+                    <CheckBox x:Name="TermsConditions" 
+                              Color="Navy"/>
+                        <Label Text="I agree to the Terms and Conditions" 
+                               TextColor="Navy"
+                               VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTermsTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>    
+                    </HorizontalStackLayout>
+
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Image Source="newsletter.png"
+                               WidthRequest="30"
+                               HeightRequest="30"/>
+                        <Switch Grid.Row="8" Grid.Column="1"
+                                HorizontalOptions="Start"
+                                IsToggled="True"
+                                ThumbColor="Navy"/> 
+                    </Grid>
+
+                    <Button x:Name="SignupButton"
+                            Text="Sign Up" 
+                            HeightRequest="60"
+                            WidthRequest="200"
+                            CornerRadius="12"
+                            TextColor="White"
+                            Clicked="OnSignupButtonClicked"
+                            FontSize="16">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="DarkViolet" Offset="0.0"/>
+                                <GradientStop Color="MediumPurple" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.Shadow>
+                            <Shadow Brush="Gray"
+                                    Offset="0,4"/>
+
+                        </Button.Shadow>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="SignupButtonEffect">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="1"/> 
+                                        <Setter Property="Scale" Value="1"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="0.8"/>
+                                        <Setter Property="Scale" Value="0.95"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                    </Button>
+
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

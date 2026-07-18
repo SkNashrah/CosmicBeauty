@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<popup:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:popup="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+             x:Class="CosmicBeauty.Views.ConfirmationPopup"
+             Margin="0"
+             Padding="0">
+    <!-- Set fixed size for consistency -->
+
+    <Frame CornerRadius="20"
+           Style="{StaticResource CosmicCard}"
+           WidthRequest="300"
+           HorizontalOptions="Center"
+           VerticalOptions="Center">
+
+        <VerticalStackLayout Spacing="20">
+            <!-- Centered title only (no message) -->
+            <Label Text="{Binding Title}" 
+                   FontSize="18"
+                   Style="{StaticResource CosmicSecondaryText}"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"/>
+
+            <Label Text="{Binding Message}"
+                   Style="{StaticResource CosmicText}"
+                   FontSize="14"
+                   FontAttributes="Bold"/>
+            
+            <!-- Buttons with reduced spacing -->
+            <HorizontalStackLayout Spacing="10" 
+                                   HorizontalOptions="Center">
+                <Button Text="Cancel" 
+                        Command="{Binding CancelCommand}"
+                        WidthRequest="100"
+                        Style="{StaticResource CosmicSecondryButton}"/>
+                
+                <Button Text="Confirm" 
+                        Command="{Binding ConfirmCommand}"
+                        BorderColor="{AppThemeBinding Light={StaticResource CosmicPrimary}, Dark={StaticResource CosmicPrimaryDark}}"
+                        Style="{StaticResource CosmicButton}"
+                        WidthRequest="150"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Frame>
+</popup:Popup>

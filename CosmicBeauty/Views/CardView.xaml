@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CosmicBeauty.Views"
+             x:Class="CosmicBeauty.Views.CardView"
+             Padding="5"
+             x:Name="cardView">
+
+    <Frame CornerRadius="10"
+           Padding="1"
+           Style="{StaticResource CosmicCard}">
+
+        <Grid ColumnDefinitions="Auto, *"
+              RowDefinitions="Auto,Auto,Auto,Auto"
+              ColumnSpacing="10"
+              Padding="5">
+            <Frame Grid.RowSpan="3"
+                   Grid.Column="0"
+                   CornerRadius="10"
+                   HeightRequest="100"
+                   WidthRequest="100"
+                   Padding="0"
+                   BorderColor="Transparent"
+                   HorizontalOptions="Center"
+                   BackgroundColor="White">
+                <Image Source="{Binding Image}"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Fill" />
+
+            </Frame>
+            <Label Grid.Row="0"
+                   Grid.Column="1"
+                   Text="{Binding Name}"
+                   FontSize="14"
+                   Style="{StaticResource CosmicText}"
+                   LineBreakMode="WordWrap"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Start"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Start" />
+
+            <Label Grid.Row="1" 
+                   Grid.Column="1"
+                   Text="{Binding SalePrice}"
+                   FontSize="12"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center"
+                   TextColor="Black"
+                   HorizontalOptions="Start" />
+
+            <Label Grid.Row="2" 
+                    Grid.Column="1"
+                    Text="{Binding StockStatus}"
+                    IsVisible="{Binding ShowStockWarning}"
+                    FontSize="10"
+                    TextColor="Red"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start"
+                    Margin="0,-5,0,0"/>     
+
+
+            <Button Grid.Row="3" 
+                    Grid.Column="1"
+                    Text="Remove"
+                    HeightRequest="10"
+                    WidthRequest="90"
+                    Style="{StaticResource CosmicButton}"
+                    VerticalOptions="End"
+                    HorizontalOptions="Start"
+                    FontSize="10"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:WishlistPage}}, 
+                                    Path=BindingContext.RemoveCommand}"
+                    CommandParameter="{Binding }"/>
+
+            <Button Grid.Row="3"
+                    Grid.Column="1"
+                    Text="Add to Bag"
+                    HeightRequest="10"
+                    Style="{StaticResource CosmicButton}"
+                    VerticalOptions="End"
+                    HorizontalOptions="End"
+                    FontSize="10"
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:WishlistPage}}, 
+                                    Path=BindingContext.AddToBagCommand}"
+                    CommandParameter="{Binding}"/>
+        </Grid>
+    </Frame>
+</ContentView>

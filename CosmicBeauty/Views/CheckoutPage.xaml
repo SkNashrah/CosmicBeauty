@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="CosmicBeauty.Views.CheckoutPage"
+             Style="{StaticResource CosmicPage}"
+             Title="CheckoutPage">
+    <Grid RowDefinitions=" *, Auto">
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="15"
+                                 Padding="10">
+                <Frame Style="{StaticResource CosmicCard}"
+                       CornerRadius="15"
+                       Padding="15"
+                       Margin="10"
+                       IsVisible="{Binding HasAddress}">
+                    <VerticalStackLayout>
+                        <Label Text="Shipping To:"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       Style="{StaticResource CosmicText}"/>
+
+                        <Label Text="{Binding Name}"
+                               FontSize="14"
+                               TextColor="Black"
+                               Margin="0,5"/>
+                        <Label Text="{Binding Address}"
+                               FontSize="14"
+                               TextColor="Black"
+                               Margin="0,5"/>
+                        <Label Text="{Binding Phone}"
+                               FontSize="14"
+                               TextColor="Black"
+                               Margin="0,5"/>
+
+                        <Button Text="Add New Address"
+                                Command="{Binding AddNewAddressCommand}"
+                                Style="{StaticResource CosmicButton}"
+                                Margin="0,10,0,0"
+                                HeightRequest="40"/>
+                    </VerticalStackLayout>
+
+                </Frame>
+                    <Frame Style="{StaticResource CosmicCard}"
+                           IsVisible="{Binding ShowForm}">
+                        <VerticalStackLayout Padding="20"
+                                    Spacing="15">
+                            <Label Text="Shipping Information"
+                                   Style="{StaticResource CosmicText}"
+                                    FontSize="20"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"/>
+
+                            <Grid RowDefinitions="*, *, Auto"
+                                    ColumnDefinitions="*,*"
+                                    RowSpacing="15"
+                                    ColumnSpacing="15">
+                            <Entry Grid.Row="0"
+                                       Grid.ColumnSpan="2"
+                                       Placeholder="Full Name"
+                                       Text="{Binding Name}"
+                                       Style="{StaticResource CosmicEntry}"/>
+
+                                <Entry Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        Placeholder="Full Address"
+                                        Text="{Binding Address}"           
+                                        Style="{StaticResource CosmicEntry}"/>
+
+                                <Entry Grid.Row="2"
+                                        Grid.Column="0" 
+                                        Placeholder="Pin Code"
+                                        Keyboard="Numeric"
+                                        Style="{StaticResource CosmicEntry}"/>
+
+                                <Entry Grid.Row="2"
+                                    Grid.Column="1"
+                                    Placeholder="City"
+                                    Style="{StaticResource CosmicEntry}"/>
+
+                            </Grid>
+
+                            <Entry Placeholder="Phone Number"
+                                Text="{Binding Phone}"
+                                Style="{StaticResource CosmicEntry}"
+                                Keyboard="Telephone"/>
+
+                            <Button Text="Save Address"
+                                Command="{Binding SaveAddressCommand}"
+                                Style="{StaticResource CosmicButton}"
+                                FontAttributes="Bold"
+                                HeightRequest="50"/>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <Label Text="Your Bag Is Empty"
+                           FontSize="20"
+                           IsVisible="{Binding IsBagEmpty}"
+                           FontAttributes="Bold"
+                           Style="{StaticResource CosmicText}"
+                           HorizontalOptions="Center"/>
+                
+                <Frame Style="{StaticResource CosmicCard}"
+                       CornerRadius="15"
+                       Padding="15"
+                       Margin="10"
+                       IsVisible="{Binding BagItems.Count}">
+                    
+                    
+                    <VerticalStackLayout Spacing="10">
+
+
+                         <Label Text="Order Summary"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               Style="{StaticResource CosmicText}"/>
+
+                        <CollectionView ItemsSource="{Binding BagItems}"
+                                        HorizontalScrollBarVisibility="Never"
+                                        VerticalScrollBarVisibility="Never"
+                                        Margin="10">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical"
+                                                   
+                                           ItemSpacing="10"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid RowDefinitions="Auto,Auto,Auto"
+                                          ColumnDefinitions="Auto,*">
+                                        <Frame Grid.Row="0"
+                                               Grid.Column="0"
+                                               BackgroundColor="White"
+                                               BorderColor="Transparent"
+                                               HeightRequest="80"
+                                               CornerRadius="10">
+                                            <Image Source="{Binding Image}"
+                                                   Aspect="AspectFill"
+                                                   HeightRequest="80"
+                                                   WidthRequest="40"/>
+                                        </Frame>
+
+                                        <Label Grid.Row="0"
+                                               Grid.Column="1"
+                                               Padding="10"
+                                               Text="{Binding Name}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               LineBreakMode="WordWrap"
+                                               Style="{StaticResource CosmicText}"
+                                               VerticalOptions="Center"/>
+                                        <HorizontalStackLayout Grid.Row="1"
+                                                       Grid.ColumnSpan="2"
+                                                       Spacing="10"
+                                                       VerticalOptions="Center"
+                                                       HorizontalOptions="End">
+                                            <Label Text="{Binding OriginalPrice}"
+                                           FontSize="12"
+                                           TextColor="Gray"
+                                           TextDecorations="Strikethrough"/>
+                                            <Label Text="{Binding SalePrice}"
+                                           FontSize="14"
+                                           TextColor="Black"/>
+                                        </HorizontalStackLayout>
+                                        
+                                        <Label Grid.Row="2"
+                                               Grid.Column="1"
+                                               Text="{Binding StockStatus}"
+                                               IsVisible="{Binding ShowStockWarning}"
+                                               FontSize="12"
+                                               TextColor="Red"
+                                               FontAttributes="Bold"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="End"
+                                               Margin="0,-5,0,0"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Grid ColumnDefinitions="*, Auto"
+                              RowDefinitions="Auto, Auto"
+                              Margin="0, 5">
+                            <Label Grid.Column="0"
+                                   Grid.Row="0"
+                                   Text="Total:"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   Style="{StaticResource CosmicText}"/>
+                            <Label Grid.Column ="0"
+                                   Grid.Row="1"
+                                   Text="{Binding TotalPrice, StringFormat='Earned {0} reward points'}"
+                                   TextColor="Gray"
+                                   FontSize="12"/>
+                            <Label Text="{Binding TotalPrice, StringFormat='₹ {0}'}"
+                                   Grid.Column="1"
+                                   Grid.RowSpan="2"
+                                   VerticalOptions="Center"
+                                   FontAttributes="Bold"
+                                   TextColor="Black"/>
+
+                           
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame Style="{StaticResource CosmicCard}"
+                       CornerRadius="15"
+                       Padding="15"
+                       Margin="10"
+                       IsVisible="{Binding BagItems.Count}"
+                        VerticalOptions="End">
+                    <VerticalStackLayout>
+                        <Label Text="Payment Method:"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       Style="{StaticResource CosmicText}"/>
+
+                        <Picker Title="Select Payment Method"
+                                Style="{StaticResource CosmicPicker}"
+                                SelectedItem="{Binding SelectedPaymentMethod}"
+                                Margin="0, 10">
+                            <Picker.Items>
+                                <x:String>UPI</x:String>
+                                <x:String>Credit Card</x:String>
+                                <x:String>Debit Card</x:String>
+                                <x:String>Net Banking</x:String>
+                                <x:String>Cash On Delivery</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </VerticalStackLayout>
+                </Frame>
+                
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout Grid.Row="1"
+                             IsVisible="{Binding BagItems.Count}"
+                             Spacing="5">
+            
+            <Label  Text="{Binding TotalSavings, StringFormat='You are Savings {0} '}"
+                    FontSize="12"
+                    HorizontalOptions="Fill"
+                    HorizontalTextAlignment="Center"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource CosmicCard}}"
+                    TextColor="Green"/>
+            <Button Text="Place Order"
+                    Command="{Binding PlaceOrderCommand}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource CosmicSecondary}}"
+                    Style="{StaticResource CosmicButton}"
+                    FontAttributes="Bold"
+                    HeightRequest="60"
+                    Margin="5"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

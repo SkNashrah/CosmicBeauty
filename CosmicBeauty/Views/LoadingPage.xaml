@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CosmicBeauty.Views.LoadingPage"
+             BackgroundColor="{AppThemeBinding Light={StaticResource CosmicBackground}, Dark={StaticResource CosmicBackgroundDark}}"
+             Title="LoadingPage">
+    <Grid>
+        <VerticalStackLayout Spacing="5" 
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center">
+            <ActivityIndicator IsRunning="True"
+                           Color="{AppThemeBinding Light={StaticResource CosmicPrimary}, Dark={StaticResource CosmicPrimaryDark}}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Scale="2"/>
+            <Label Text="Loading..."
+               FontSize="18"
+               FontAttributes="Bold"
+               Style="{StaticResource CosmicText}"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Margin="0,60,0,0"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

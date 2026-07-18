@@ -1,0 +1,39 @@
+## Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build
+bin/
+obj/
+
+## Rider
+.idea/
+
+## ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+## MAUI
+artifacts/
+
+## Android
+*.keystore
+
+## NuGet
+packages/
+
+## Logs
+*.log
+
+## Windows
+Thumbs.db
+Desktop.ini
+
+## Mac
+.DS_Store
+
+## Generated
+TestResults/
